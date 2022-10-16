@@ -37,5 +37,3 @@ jobs:
       - run: pnpm coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-        with:
-          directory: ./coverage

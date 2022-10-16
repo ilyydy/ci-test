@@ -3,6 +3,8 @@ name: main test
 on:
   push:
     branches: ["main"]
+    paths-ignore:
+      - ".*"
 
 jobs:
   build:

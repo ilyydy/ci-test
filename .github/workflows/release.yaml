@@ -1,12 +1,13 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: main test
+name: tag
 
 on:
   push:
     tags:
       - "v*.*.*"
+      - "app-*"
 
 jobs:
   build:
@@ -18,19 +19,18 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 7.13.4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - run: pnpm i --frozen-lockfile
-      - run: pnpm tsc
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: dist/index.js
+      - name: get tag
+        run: |
+          if [[ $GITHUB_REF_NAME =~ ^v.+ ]]; then
+            pkgName="main"
+          else
+            # `%@*` truncates @ and version number from the right side.
+            # https://stackoverflow.com/questions/9532654/expression-after-last-specific-character
+            pkgName=${GITHUB_REF_NAME%@*}
+          fi
 
+          echo pkgName
+          echo "{pkgName}={pkgName}" >> $GITHUB_ENV
+
+      - name: release
+        run: echo "${{ env.pkgName }}"

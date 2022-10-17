@@ -8,6 +8,7 @@ on:
     branches: ["main"]
     paths-ignore:
       - "*.md"
+      - "doc"
   pull_request:
     branches: ["main"]
     paths-ignore:

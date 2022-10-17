@@ -29,8 +29,8 @@ jobs:
             pkgName=${GITHUB_REF_NAME%@*}
           fi
 
-          echo pkgName
-          echo "{pkgName}={pkgName}" >> $GITHUB_ENV
+          echo $pkgName
+          echo "pkgName=$pkgName" >> $GITHUB_ENV
 
       - name: release
         run: echo "${{ env.pkgName }}"

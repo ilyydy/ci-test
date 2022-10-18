@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "e": "echo b",
     "build": "tsc",
     "test": "vitest run",
     "coverage": "vitest run --coverage",

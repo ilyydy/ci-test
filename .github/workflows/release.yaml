@@ -48,11 +48,11 @@ jobs:
           cat tempCHANGELOG.md
           echo "full:"
           cat FullCHANGELOG.md
-      # - name: Release
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     artifacts: "dist/index.js"
-      #     bodyFile: "tempCHANGELOG.md"
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/index.js"
+          bodyFile: "tempCHANGELOG.md"
         # uses: softprops/action-gh-release@v1
         # with:
         #   files: dist/index.js

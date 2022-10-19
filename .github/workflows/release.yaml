@@ -29,6 +29,7 @@ jobs:
           cache: "pnpm"
       - run: pnpm i --frozen-lockfile
       - run: pnpm build
+      - run: ls *.md
       - run: pnpm changelog
       - run: pnpm changelogFull
       - name: get tag

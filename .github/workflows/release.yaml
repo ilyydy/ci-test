@@ -6,7 +6,8 @@ name: tag
 on:
   push:
     tags:
-      - "*"
+      - "v*"
+      - "*@*"
 
 jobs:
   build:
@@ -18,20 +19,20 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 7.13.4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - run: pnpm i --frozen-lockfile
-      - run: pnpm build
-      - run: ls *.md
-      - run: pnpm changelog
-      - run: pnpm changelogFull
+      # - uses: actions/checkout@v3
+      # - uses: pnpm/action-setup@v2.0.1
+      #   with:
+      #     version: 7.13.4
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
+      #     cache: "pnpm"
+      # - run: pnpm i --frozen-lockfile
+      # - run: pnpm build
+      # - run: ls *.md
+      # - run: pnpm changelog
+      # - run: pnpm changelogFull
       - name: get tag
         run: |
           if [[ $GITHUB_REF_NAME =~ ^v.+ ]]; then
@@ -44,22 +45,25 @@ jobs:
 
           echo $pkgName
           echo "pkgName=$pkgName" >> $GITHUB_ENV
-          ls *.md
-          echo "temp:"
-          cat tempCHANGELOG.md
-          echo "full:"
-          cat FullCHANGELOG.md
-      - name: "Build Changelog"
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v3.4.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo ${{steps.build_changelog.outputs}}
-      - name: Release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "dist/index.js"
-          body: ${{steps.build_changelog.outputs.changelog}}
+          # ls *.md
+          # echo "temp:"
+          # cat tempCHANGELOG.md
+          # echo "full:"
+          # cat FullCHANGELOG.md
+      - name: test
+        if: ${{ env.pkgName != 'main' }}
+        run: echo go
+      # - name: "Build Changelog"
+      #   id: build_changelog
+      #   uses: mikepenz/release-changelog-builder-action@v3.4.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - run: echo ${{steps.build_changelog.outputs}}
+      # - name: Release
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     artifacts: "dist/index.js"
+      #     body: ${{steps.build_changelog.outputs.changelog}}
           # bodyFile: "tempCHANGELOG.md"
         # uses: softprops/action-gh-release@v1
         # with:

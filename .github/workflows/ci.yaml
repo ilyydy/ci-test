@@ -36,5 +36,8 @@ jobs:
       - run: pnpm i --frozen-lockfile
       - run: pnpm test
       - run: pnpm coverage
+      - name: echo event
+        run: echo github.event_name
       - name: Upload coverage to Codecov
+        if: ${{ github.event_name == 'push' }}
         uses: codecov/codecov-action@v3

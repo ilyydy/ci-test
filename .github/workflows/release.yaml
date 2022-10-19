@@ -30,7 +30,8 @@ jobs:
 
           echo $pkgName
           echo "pkgName=$pkgName" >> $GITHUB_ENV
-          echo '${{ toJSON(github) }}'
+          # echo '${{ toJSON(github) }}'
+          pnpm conventional-changelog
       - name: Release
         uses: softprops/action-gh-release@v1
         with:

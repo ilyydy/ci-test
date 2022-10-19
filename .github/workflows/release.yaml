@@ -29,6 +29,7 @@ jobs:
           cache: "pnpm"
       - run: pnpm i --frozen-lockfile
       - run: pnpm build
+      - run: pnpm changelog
       - name: get tag
         run: |
           if [[ $GITHUB_REF_NAME =~ ^v.+ ]]; then
@@ -45,6 +46,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: dist/index.js
-          # body_path: tempCHANGELOG.md
-          body: |
-            Please refer to [CHANGELOG.md](https://github.com/ilyydy/ci-test/blob/${{ github.ref_name }}/packages/${{ env.pkgName }}/CHANGELOG.md) for details.
+          body_path: tempCHANGELOG.md
+          # body: |
+          #   Please refer to [CHANGELOG.md](https://github.com/ilyydy/ci-test/blob/${{ github.ref_name }}/packages/${{ env.pkgName }}/CHANGELOG.md) for details.

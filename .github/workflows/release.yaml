@@ -30,6 +30,7 @@ jobs:
       - run: pnpm i --frozen-lockfile
       - run: pnpm build
       - run: pnpm changelog
+      - run: pnpm changelogFull
       - name: get tag
         run: |
           if [[ $GITHUB_REF_NAME =~ ^v.+ ]]; then
@@ -42,13 +43,16 @@ jobs:
 
           echo $pkgName
           echo "pkgName=$pkgName" >> $GITHUB_ENV
-          ls
+          ls *.md
+          echo "temp:"
           cat tempCHANGELOG.md
-      - name: Release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "dist/index.js"
-          bodyFile: "tempCHANGELOG.md"
+          echo "full:"
+          cat FullCHANGELOG.md
+      # - name: Release
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     artifacts: "dist/index.js"
+      #     bodyFile: "tempCHANGELOG.md"
         # uses: softprops/action-gh-release@v1
         # with:
         #   files: dist/index.js

@@ -6,8 +6,7 @@ name: tag
 on:
   push:
     tags:
-      - "v*.*.*"
-      - "app-*"
+      - "*@*"
 
 jobs:
   build:
@@ -31,6 +30,10 @@ jobs:
 
           echo $pkgName
           echo "pkgName=$pkgName" >> $GITHUB_ENV
-
-      - name: release
-        run: echo "${{ env.pkgName }}"
+          echo '${{ toJSON(github) }}'
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/index.js
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/ilyydy/ci-test/blob/${{ github.ref_name }}/packages/${{ env.pkgName }}/CHANGELOG.md) for details.

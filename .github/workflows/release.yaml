@@ -48,8 +48,8 @@ jobs:
           ls dist
           git status
           git branch
-          git switch main
-          git status
+          # git switch main
+          # git status
           # cat .gitignore
           # ls *.md
           # echo "temp:"

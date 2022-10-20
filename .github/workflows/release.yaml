@@ -47,7 +47,8 @@ jobs:
           echo "pkgName=$pkgName" >> $GITHUB_ENV
           ls dist
           git status
-          git checkout main
+          git branch
+          git switch main
           git status
           # cat .gitignore
           # ls *.md

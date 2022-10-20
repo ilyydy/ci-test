@@ -46,6 +46,8 @@ jobs:
           echo $pkgName
           echo "pkgName=$pkgName" >> $GITHUB_ENV
           ls dist
+          git status
+          # cat .gitignore
           # ls *.md
           # echo "temp:"
           # cat tempCHANGELOG.md

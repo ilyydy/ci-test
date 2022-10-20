@@ -56,10 +56,16 @@ jobs:
           # cat tempCHANGELOG.md
           # echo "full:"
           # cat FullCHANGELOG.md
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          file_pattern: 'dist/*.js'
-          branch: build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: dist
+          FOLDER: dist
+      # - uses: stefanzweifel/git-auto-commit-action@v4
+      #   with:
+      #     file_pattern: 'dist/*.js'
+      #     branch: build
       # - name: "Build Changelog"
       #   id: build_changelog
       #   uses: mikepenz/release-changelog-builder-action@v3.4.0
